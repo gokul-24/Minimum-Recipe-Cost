@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Destinations</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/destinations.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/destinations_responsive.css' %}">
+</head>
+<body>
+
+<div class="super_container">
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="header_content d-flex flex-row align-items-center justify-content-start">
+						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+							<div class="logo"><a href="/">Recipe</a></div>
+							<nav class="main_nav">
+								<ul class="d-flex flex-row align-items-start justify-content-start">
+									<li class="active"><a href="/">Home</a></li>
+								</ul>
+							</nav>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</header>
+
+	
+	
+
+	<div class="home">
+		<div class="background_image" style="background-image:url(https://envato-shoebox-0.imgix.net/e44f/c93c-3aa2-46ff-85a4-25f3d9899f37/pasta8_b293.jpg?auto=compress%2Cformat&fit=max&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark2.png&markalign=center%2Cmiddle&markalpha=18&w=800&s=d9bf6f45be8fd83b9de6f7825213d092)"></div>
+	</div>
+
+	<!-- Search -->
+	<div class="home_search">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="home_search_container">
+						<div class="home_search_title">Search for recipe</div>
+						<div class="home_search_content">
+							<form action="minseller" class="home_search_form" id="home_search_form" method="POST">
+								{% csrf_token %}
+								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+									<input type="text" style="width: 100%; background-color:lavender;" name="name1"  class="search_input search_input_1" placeholder="recipe" required="required">
+							
+								
+									<button class="home_search_button">search</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="destinations" id="destinations">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+
+					<div class="section_title"><h2>Recipes</h2></div>
+				</div>
+			</div>
+			
+			<div class="row destinations_row">
+				<div class="col">
+					<div class="destinations_container item_grid">
+						{% if not dests and flag1 == 2 %}
+							<h2  style="text-align: center; color:black;">No Recipes available </h2>
+						{%else %}
+							{% if flag1 == 0 %}
+							{% for dat in data %}
+							<!-- Destination -->
+							<div class="destination item">
+								<div class="destination_image">
+									<form action="doro" method="POST">
+										{% csrf_token %}
+									<img src="{{MEDIA_URL}}{{dat.img}}" alt="hi">
+								</div>
+								<div class="destination_content">
+									<div class="destination_title"><a href="#"><h3>{{dat.name}}</h3></a>
+									</div>
+									<div class="destination_price">
+										<p style="color: black;"><h3>Ingredients : {{dat.ingredients}}</h3></p>
+									</div>
+									</form>
+								</div>
+					
+							</div>
+
+							{% endfor %}
+						
+							{% else %}
+							{% if flag1 == 1 %}
+							{% for data in data1 %}
+							
+							<div class="destination item">
+								<div class="destination_image">
+									<form action="confirm" method="POST">
+										{% csrf_token %}
+
+								
+								<div class="destination_content">
+									
+									<div class="destination_title"><a href="#">{{data.name}}</a>
+									
+									</div>
+									
+									</div>
+										<div class="destination_price">Final price Rs.{{data.price}}</div>
+						
+						
+									</form>
+								</div>
+					
+							</div>
+							{% endfor %}
+							{% endif %}
+							{% endif %}
+
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+
+
+	
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'plugins/easing/easing.js' %}"></script>
+<script src="{% static 'plugins/Isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/destinations.js' %}"></script>
+</body>
+</html>
